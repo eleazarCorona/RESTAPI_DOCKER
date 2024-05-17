@@ -14,14 +14,20 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Comandos para compilar tu API
-                sh 'mvn clean package' // Ejemplo usando Maven
+                // Navegar al directorio correcto si el pom.xml no está en el directorio raíz
+                dir('app/pom') {
+                    // Comandos para compilar tu API
+                    sh 'mvn clean package' // Ejemplo usando Maven
+                }
             }
         }
         stage('Test') {
             steps {
-                // Comandos para ejecutar pruebas
-                sh 'mvn test' // Ejemplo usando Maven
+                // Navegar al directorio correcto si el pom.xml no está en el directorio raíz
+                dir('ruta/al/directorio/con/pom') {
+                    // Comandos para ejecutar pruebas
+                    sh 'mvn test' // Ejemplo usando Maven
+                }
             }
         }
         stage('Build Docker Image') {
