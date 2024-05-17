@@ -32,10 +32,13 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                // Construir la imagen Docker
-                sh 'docker-compose build'
+                dir('app') {
+                    sh 'docker-compose build'
+                    // Otros comandos de Docker Compose según sea necesario
+                }
             }
         }
+
         stage('Deploy') {
             steps {
                 // Desplegar usando Docker Compose
