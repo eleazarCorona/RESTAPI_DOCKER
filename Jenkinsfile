@@ -10,23 +10,28 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // Comandos para compilar tu API (opcional si ya tienes las imágenes)
-                sh './mvnw clean package' // Ejemplo usando Maven Wrapper
+                // Comandos para compilar tu API
+                // Para un proyecto de Spring Boot, normalmente usarás Maven o Gradle
+                sh 'mvn clean package' // Ejemplo usando Maven
             }
         }
         stage('Test') {
             steps {
-                // Comandos para ejecutar pruebas (opcional si ya tienes las imágenes)
-                sh './mvnw test' // Ejemplo usando Maven Wrapper
+                // Comandos para ejecutar pruebas
+                sh 'mvn test' // Ejemplo usando Maven
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                // Construir la imagen Docker
+                sh 'docker-compose build'
             }
         }
         stage('Deploy') {
             steps {
-                script {
-                    // Usar la imagen Docker existente y desplegar usando Docker Compose
-                    sh 'docker-compose down' // Detener cualquier instancia en ejecución
-                    sh 'docker-compose up -d' // Levantar contenedores en segundo plano
-                }
+                // Desplegar usando Docker Compose
+                sh 'docker-compose down' // Detener cualquier instancia en ejecución
+                sh 'docker-compose up -d' // Levantar contenedores en segundo plano
             }
         }
     }
