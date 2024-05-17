@@ -15,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Navegar al directorio correcto si el pom.xml no está en el directorio raíz
-                dir('app/pom') {
+                dir('app') {
                     // Comandos para compilar tu API
                     sh 'mvn clean package' // Ejemplo usando Maven
                 }
@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Navegar al directorio correcto si el pom.xml no está en el directorio raíz
-                dir('ruta/al/directorio/con/pom') {
+                dir('app') {
                     // Comandos para ejecutar pruebas
                     sh 'mvn test' // Ejemplo usando Maven
                 }
