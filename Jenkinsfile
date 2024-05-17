@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'Maven 3.6.3' // Nombre de la instalación de Maven configurada en Jenkins
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,7 +15,6 @@ pipeline {
         stage('Build') {
             steps {
                 // Comandos para compilar tu API
-                // Para un proyecto de Spring Boot, normalmente usarás Maven o Gradle
                 sh 'mvn clean package' // Ejemplo usando Maven
             }
         }
