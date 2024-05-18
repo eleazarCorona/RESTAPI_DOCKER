@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apirestful
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: apirestful
+  template:
+    metadata:
+      labels:
+        app: apirestful
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "admin"  # Aquí configura la contraseña del usuario root
+        - name: MYSQL_DATABASE
+          value: "itl"
+        ports:
+        - containerPort: 3307
+      - name: apirestful
+        image: eleazarerok/app-app:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_HOST
+          value: "mysql"  # Aquí especifica el nombre del servicio de MySQL en Kubernetes
+        - name: DATABASE_PORT
+          value: "3306"
+        - name: DATABASE_USER
+          value: "root"
+        - name: DATABASE_PASSWORD
+          value: "admin"  # Debe coincidir con la contraseña configurada para el usuario root
+        - name: DATABASE_NAME
+          value: "itl"
